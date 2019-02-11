@@ -23,7 +23,7 @@ class Cart extends CI_Controller {
                              'qty' =>$this->input->post('qty')
                             );
         $this->cart->insert($data_produk);
-        redirect('cart');
+        redirect('shop');
     }
 
     function hapus($rowid)
@@ -99,9 +99,8 @@ class Cart extends CI_Controller {
             }
         $data['cust'] = $data_pelanggan;
         $data['or'] = $data_order;
-        $data['or_detail'] = $data_detail;
         //-------------------------Hapus shopping cart--------------------------        
-        $this->cart->destroy();
+        
         $this->load->view('front/v_invoice', $data);
         
     }

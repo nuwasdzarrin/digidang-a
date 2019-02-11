@@ -216,12 +216,13 @@
                 <div>
                     <div>
                         <p class="info-judul">Kode Order</p>
-                        <p>0029100</p>
+                        <p><?php echo $or['order_code']; ?></p>
                     </div>
                     <div>
                         <p class="info-judul">Pemesan</p>
-                        <p>Nama Pemesan</p>
-                        <p>emailpemesan@email.com</p>
+                        <p><?php echo $cust['nama']; ?></p>
+                        <p><?php echo $cust['email']; ?></p>
+                        <p><?php echo $cust['phone']; ?></p>
                     </div>
                 </div>
                 <div>
@@ -231,9 +232,16 @@
                     </div>
                 </div>
             </div>
+            <?php 
+            $cart = $this->cart->contents();
+            $grand_total = 0;
+            foreach ($cart as $it) {
+                $grand_total += $it['subtotal']; 
+            } 
+            ?>
             <div>
                 <p class="right-align info-judul">Total</p>
-                <p class="biaya-total">Rp<span>2.000.000</span></p>
+                <p class="biaya-total">Rp<span><?php echo number_format($grand_total, 0,",","."); ?></span></p>
                 <p class="status-pembayaran waiting">Belum Dibayar</p>
             </div>
         </div>
@@ -246,12 +254,14 @@
                         <th>Kuantitas</th>
                         <th>Total</th>
                     </tr>
+                    <?php foreach ($cart as $it) { ?>
                     <tr>
-                        <td>Paket Indomie Telur</td>
-                        <td>Rp. 1.000.000</td>
-                        <td>2</td>
-                        <td>Rp. 2.000.000</td>
+                        <td><?php echo $it['name']; ?></td>
+                        <td>Rp. <?php echo number_format($it['price'],0,",","."); ?></td>
+                        <td><?php echo $it['qty']; ?></td>
+                        <td>Rp. <?php echo number_format($it['subtotal'],0,",","."); ?></td>
                     </tr>
+                    <?php } $this->cart->destroy(); ?>
                 </table>
             </div>
         </div>
